@@ -5,7 +5,7 @@
 
 Secure desktop password vault — Black • Yellow • White • AES-256
 
-**Download:** `install_passbox.exe` below (Releases) — 178MB
+**Download:** `install_passbox.exe` below (Releases) — 170MB
 
 ### Install
 1. Download `install_passbox.exe`
