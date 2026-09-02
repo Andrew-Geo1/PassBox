@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="icon.ico" width="88" height="88" alt="PassBox"/>
+</p>
 # PassBox — MADE BY ANDREW_GEO
 
 Secure desktop password vault — Black • Yellow • White • AES-256
