@@ -22,6 +22,8 @@ Installs to `C:\Program Files\PassBox\passbox.exe` + Desktop shortcut `PassBox.l
 
 **Vault:** Search, Copy / Decrypt / Delete, Show in Folder, Clear — `AES-256-CBC + SHA256(key) + 16B IV`, no dates, no plain saved
 
+<p align="center"><img src="preview.png" width="720" alt="PassBox Preview"/></p>
+
 ### Security
 Master key never saved. Without correct key, encrypted is unbreakable.
 
