@@ -12,7 +12,7 @@ Secure desktop password vault — Black • Yellow • White • AES-256
 2. Double-click → **Yes** (admin) → **Install PassBox**
 3. Tutorial shows while installing
 
-Installs to `C:\Program Files\PassBox\passbox.exe` + Desktop shortcut `PassBox.lnk`
+Installs to `C:\Program Files\PassBox\passbox.exe` + Desktop shortcut `PassBox.lnk`-
 `vault.txt` is **same folder as app** (`C:\Program Files\PassBox\vault.txt`, writable) — one file, all encrypted
 
 ### How it works
