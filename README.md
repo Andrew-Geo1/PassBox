@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-2.0.0-FFC107?style=for-the-badge&labelColor=0A0A0A" alt="version"/>
-  <img src="https://img.shields.io/badge/platform-Windows-111111?style=for-the-badge&labelColor=0A0A0A" alt="windows"/>
+  <img src="https://img.shields.io/badge/platform-Windows-FFC107?style=for-the-badge&labelColor=0A0A0A" alt="windows"/>
   <img src="https://img.shields.io/badge/AES--256-FFC107?style=for-the-badge&labelColor=0A0A0A" alt="aes"/>
 </p>
 
