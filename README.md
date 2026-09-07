@@ -62,7 +62,7 @@
 ### FAQ
 **Is it free?** Yes, MIT. No premium, no cloud paywall.
 **VirusTotal says 1 flag Trojan?** That's Zillya false-positive on the installer. Main app 0/69, Microsoft/Kaspersky/BitDefender all clean. Zillya flags many Electron apps as `Injector` because installer writes files. Click Reanalyze on VT - often goes to 0.
-**Why 180MB?** Electron bundles Chromium + Node. Small portable build coming in v2.1.
+**Why 170MB?** Electron bundles Chromium + Node. Small portable build coming in v2.1.
 **Chrome / Bitwarden leaked, should I switch?** PassBox is for people who want a local file they control. Try it for non-critical logins first.
 **Forgot master key?** Cannot recover. That's the point of zero-knowledge.
 
