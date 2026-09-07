@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <b>⬇ Download: <a href="https://github.com/Andrew-Geo1/PassBox/releases">install_passbox.exe</a> (178MB)</b><br/>
+  <b>⬇ Download: <a href="https://github.com/Andrew-Geo1/PassBox/releases">install_passbox.exe</a> (170MB)</b><br/>
   <sub>One file → <code>C:\Program Files\PassBox\passbox.exe</code> + Desktop shortcut • vaults same folder</sub>
 </p>
 
