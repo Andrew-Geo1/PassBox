@@ -48,8 +48,6 @@ AES-256-CBC + SHA256(key) + 16B IV, TOTP SHA1 30s. Master key never saved.
 ### Changelog v2.0
 - Added 2FA vault
 - Generate 2FA simplified to Encrypted + Master Key only
-- 2FA code no spaces
-- Installer tutorial updated for 2FA
 
 ---
 
