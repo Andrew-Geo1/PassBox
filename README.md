@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.png" width="88" height="88" alt="PassBox"/>
+  <img src="icon.ico" width="88" height="88" alt="PassBox"/>
 </p>
 
 <h1 align="center">PassBox — MADE BY ANDREW_GEO — v2.0</h1>
