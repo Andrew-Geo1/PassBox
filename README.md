@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.png" width="88" height="88" alt="PassBox"/>
+  <img src="icon.ico" width="88" height="88" alt="PassBox"/>
 </p>
 
 <h1 align="center">PassBox v2.0 — Free Offline Password Vault for Windows</h1>
@@ -7,18 +7,19 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-2.0.0-FFC107?style=for-the-badge&labelColor=0A0A0A" alt="version"/>
-  <img src="https://img.shields.io/badge/platform-Windows-111111?style=for-the-badge&labelColor=0A0A0A" alt="windows"/>
+  <img src="https://img.shields.io/badge/platform-Windows-FFC107?style=for-the-badge&labelColor=0A0A0A" alt="windows"/>
   <img src="https://img.shields.io/badge/offline-00C853?style=for-the-badge&labelColor=0A0A0A" alt="offline"/>
   <img src="https://img.shields.io/badge/VirusTotal-0_69_clean-00C853?style=for-the-badge&labelColor=0A0A0A" alt="virustotal"/>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Andrew-Geo1/PassBox/releases/download/v2.0.0/PassBox-Setup-v2.0.exe"><b>⬇ Download PassBox-Setup-v2.0.exe (180 MB)</b></a><br/>
+  <a href="https://github.com/Andrew-Geo1/PassBox/releases/download/v2.0.0/PassBox-Setup-v2.0.exe"><b>⬇ Download PassBox-Setup-v2.0.exe (170 MB)</b></a><br/>
   <sub>Windows 10/11 64-bit • Installer + Desktop shortcut • Vault stays next to app</sub><br/>
-  <sub>✅ <a href="https://www.virustotal.com/gui/file/1786b10b315b93377571fe3b6d5d2781e9290421554aaf6cb23b807295014c5a/detection">VirusTotal: 0/69 Clean</a> • Open source • MIT</sub>
+  <sub>✅ <a href="https://www.virustotal.com/gui/file/1786b10b315b93377571fe3b6d5d2781e9290421554aaf6cb23b807295014c5a/detection">App: VirusTotal 0/69 Clean</a> • <a href="https://www.virustotal.com/gui/file/70df2e11e6c1c020aab89b985a289cea0a8d1975af54e6045e4600d4266f08a1/detection">Installer: 1/68 (1 FP by Zillya)</a> • Open source • MIT</sub>
 </p>
 
-> Windows says "Unknown publisher"? Click **More info → Run anyway**. Normal for free indie apps without $200/yr signing. Verified clean on VirusTotal 0/69.
+> Windows says "Unknown publisher"? Click **More info → Run anyway**. Normal for free indie apps without $200/yr signing.
+> **Is it safe?** Yes. Main app is 0/69 clean. Installer shows 1/68 - single flag from Zillya `Trojan.Injector` heuristic (common false-positive for Electron installers). Microsoft, Kaspersky, BitDefender, Malwarebytes, ESET all say Undetected. Full scans linked above.
 
 ---
 
@@ -60,6 +61,7 @@
 
 ### FAQ
 **Is it free?** Yes, MIT. No premium, no cloud paywall.
+**VirusTotal says 1 flag Trojan?** That's Zillya false-positive on the installer. Main app 0/69, Microsoft/Kaspersky/BitDefender all clean. Zillya flags many Electron apps as `Injector` because installer writes files. Click Reanalyze on VT - often goes to 0.
 **Why 180MB?** Electron bundles Chromium + Node. Small portable build coming in v2.1.
 **Chrome / Bitwarden leaked, should I switch?** PassBox is for people who want a local file they control. Try it for non-critical logins first.
 **Forgot master key?** Cannot recover. That's the point of zero-knowledge.
