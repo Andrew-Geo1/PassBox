@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PassBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Titlebar -->
+  <div class="titlebar" id="titlebar">
+    <div class="titlebar-left">
+      <div class="logo-icon">
+        <img src="icon.png" alt="" width="18" height="18" onerror="this.style.display='none'">
+        <span class="logo-fallback">PB</span>
+      </div>
+      <span class="app-name">pass<b>box</b></span>
+      <span class="app-ver">v2.0</span>
+    </div>
+    <div class="titlebar-right">
+      <button class="tb-btn" id="btnMin" title="Minimize" aria-label="Minimize">
+        <svg width="10" height="2" viewBox="0 0 10 2" fill="none"><rect width="10" height="2" rx="1" fill="currentColor"/></svg>
+      </button>
+      <button class="tb-btn" id="btnMax" title="Maximize" aria-label="Maximize">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="0.5" y="0.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+      </button>
+      <button class="tb-btn close" id="btnClose" title="Close" aria-label="Close">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 1L9 9M9 1L1 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="nav-label">MENU</div>
+      <button class="nav-btn active" data-page="create" aria-current="page">
+        <span class="icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span>Create</span>
+        <span class="chevron">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </button>
+      <button class="nav-btn" data-page="get">
+        <span class="icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span>Get</span>
+        <span class="chevron">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </button>
+      <button class="nav-btn" data-page="vault">
+        <span class="icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/><path d="M7 7v10M17 7v10" stroke-opacity="0.5"/></svg>
+        </span>
+        <span>Vault</span>
+        <span class="chevron">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </button>
+      <button class="nav-btn" data-page="2fa">
+        <span class="icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" opacity="0.3"/></svg>
+        </span>
+        <span>2FA</span>
+        <span class="chevron">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </button>
+
+      <div class="sidebar-bottom">
+        <div class="vault-info">
+          <div class="vault-info-top">
+            <span class="vault-dot" aria-hidden="true"></span> 
+            <span>Vault Active</span> 
+            <span class="vault-badge">ENCRYPTED</span>
+          </div>
+          <div class="vault-path" id="vaultPath" title="vault.txt">vault.txt</div>
+          <div class="vault-actions">
+            <button class="mini-btn" id="openVaultBtn">Open File</button>
+            <button class="mini-btn danger" id="clearVaultBtn">Clear</button>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:10px;font-size:10px;color:var(--muted2);letter-spacing:0.06em;font-weight:700">MADE BY ANDREW_GEO • PASSBOX</div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main" id="mainScroll">
+      <!-- CREATE PAGE -->
+      <div class="page active" id="page-create">
+        <div class="page-header">
+          <div class="page-title">
+            <span class="title-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span> 
+            Create Password
+          </div>
+          <div class="page-subtitle">Generate a <strong>random password</strong> for any service. Only the encrypted version is saved to <code>vault.txt</code>.</div>
+        </div>
+
+        <div class="grid-single">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title"><span class="dot" aria-hidden="true"></span> Service Details</div>
+                <div class="card-desc">Each password is tied to service + email</div>
+              </div>
+              <span class="badge">AES-256</span>
+            </div>
+            <div class="card-body">
+              <div class="field">
+                <label class="label" for="serviceInput">Service Name <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 15h6M9 12h6" stroke-width="1.6"/></svg>
+                  </span>
+                  <input class="input" id="serviceInput" placeholder="e.g. GitHub, Gmail, Netflix" autocomplete="off" spellcheck="false">
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="emailInput">Email Used <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" rx="2"/><path d="M4 7l8 6 8-6" stroke-linecap="round"/></svg>
+                  </span>
+                  <input class="input" id="emailInput" placeholder="e.g. you@example.com" type="email" autocomplete="email" spellcheck="false">
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="createKeyInput">Master Key <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg>
+                  </span>
+                  <input class="input" id="createKeyInput" type="password" placeholder="Enter your secret key" autocomplete="new-password">
+                  <button class="input-action" id="toggleCreateKeyBtn" type="button" title="Show/Hide" aria-label="Toggle master key visibility">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="help-text">Your private key â€” never saved, only you know it. Used to encrypt.</div>
+              </div>
+
+              <div class="divider" role="separator"></div>
+
+              <div class="field">
+                <div class="slider-row">
+                  <span class="slider-label">Password Length</span>
+                  <span class="slider-value" id="lengthValue">16</span>
+                </div>
+                <input type="range" id="lengthSlider" min="8" max="32" value="16" aria-label="Password length">
+                <div class="slider-ticks"><span>8</span><span>32</span></div>
+              </div>
+
+              <div class="toggles" role="group" aria-label="Password options">
+                <div class="toggle active" data-toggle="upper" tabindex="0" role="switch" aria-checked="true">
+                  <span>
+                    <span class="toggle-label"><span aria-hidden="true">Aa</span> Uppercase</span>
+                    <span class="toggle-desc">A-Z</span>
+                  </span>
+                  <span class="switch" aria-hidden="true"></span>
+                  </div>
+                <div class="toggle active" data-toggle="numbers" tabindex="0" role="switch" aria-checked="true">
+                  <span>
+                    <span class="toggle-label"><span aria-hidden="true">#</span> Numbers</span>
+                    <span class="toggle-desc">0-9</span>
+                  </span>
+                  <span class="switch" aria-hidden="true"></span>
+                  </div>
+                <div class="toggle active" data-toggle="symbols" tabindex="0" role="switch" aria-checked="true">
+                  <span>
+                    <span class="toggle-label"><span aria-hidden="true">!*</span> Symbols</span>
+                    <span class="toggle-desc">!@#$%</span>
+                  </span>
+                  <span class="switch" aria-hidden="true"></span>
+                  </div>
+                <div class="toggle" style="opacity:0.6;cursor:default" tabindex="-1" aria-disabled="true">
+                  <span>
+                    <span class="toggle-label"><span aria-hidden="true">aa</span> Lowercase</span>
+                    <span class="toggle-desc">Always on</span>
+                  </span>
+                  <span class="switch" style="background:var(--primary);border-color:var(--primary)"><span style="transform:translateX(18px);width:16px;height:16px;background:#000;border-radius:50%;display:block;margin:2px"></span></span></div>
+              </div>
+
+              <div class="strength" id="strengthRow" aria-live="polite">
+                <div class="strength-bars" aria-hidden="true">
+                  <div class="strength-bar" id="bar1"></div>
+                  <div class="strength-bar" id="bar2"></div>
+                  <div class="strength-bar" id="bar3"></div>
+                  <div class="strength-bar" id="bar4"></div>
+                </div>
+                <span class="strength-label" id="strengthLabel">Strong</span>
+              </div>
+
+              <button class="btn btn-primary" id="generateBtn" style="margin-top:18px">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" /></svg>
+                Generate &amp; Encrypt &amp; Save
+              </button>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div class="result" id="createResult" aria-live="polite">
+            <div class="result-head">
+              <span class="result-icon">âœ“</span>
+              <div>
+                <div class="result-title">Saved to vault.txt</div>
+                <div class="result-meta" id="savedMeta">GitHub â€¢ you@example.com</div>
+              </div>
+              <span class="result-badge">ENCRYPTED</span>
+            </div>
+
+            <div class="result-row">
+              <div class="result-content">
+                <div class="result-label">Real Password (copy now!)</div>
+                <div class="result-value plain" id="realPwdValue">â€¢â€¢â€¢â€¢</div>
+              </div>
+              <div class="result-actions">
+                <button class="icon-btn" id="copyRealBtn" title="Copy real password" aria-label="Copy real password">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V7a2 2 0 0 1 2-2h8"/></svg>
+                </button>
+                <button class="icon-btn" id="toggleRealBtn" title="Show/Hide" aria-label="Toggle visibility">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="result-row">
+              <div class="result-content">
+                <div class="result-label">Encrypted (saved in vault.txt)</div>
+                <div class="result-value encrypted" id="encPwdValue">â€¢â€¢â€¢â€¢</div>
+              </div>
+              <div class="result-actions">
+                <button class="icon-btn" id="copyEncBtn" title="Copy encrypted" aria-label="Copy encrypted">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V7a2 2 0 0 1 2-2h8"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET PAGE -->
+      <div class="page" id="page-get">
+        <div class="page-header">
+          <div class="page-title">
+            <span class="title-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span> 
+            Get Password
+          </div>
+          <div class="page-subtitle">Paste the <strong>encrypted password</strong> from <code>vault.txt</code> and enter your <strong>secret key</strong> to reveal the real password.</div>
+        </div>
+
+        <div class="grid-single">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title"><span class="dot" aria-hidden="true"></span> Decrypt Password</div>
+                <div class="card-desc">Enter encrypted text + secret key</div>
+              </div>
+              <span class="badge">AES-256</span>
+            </div>
+            <div class="card-body">
+              <div class="field">
+                <label class="label" for="encInput">Encrypted Password <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8" stroke-width="1.6"/></svg>
+                  </span>
+                  <input class="input" id="encInput" placeholder="e.g. a1b2c3d4e5...:9f8e7d6c5b4a3..." style="font-family:var(--mono);font-size:12px" autocomplete="off" spellcheck="false">
+                  <button class="input-action" id="pasteEncBtn" type="button" title="Paste" aria-label="Paste from clipboard">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V7a2 2 0 0 1 2-2h8"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="keyInput">Secret Key <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </span>
+                  <input class="input" id="keyInput" type="password" placeholder="Enter your secret key" autocomplete="current-password">
+                  <button class="input-action" id="toggleKeyBtn" type="button" title="Show/Hide" aria-label="Toggle key visibility">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" id="decryptBtn" style="margin-top:6px">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+                Decrypt &amp; Reveal Password
+              </button>
+
+              <div id="decryptAlert" role="alert"></div>
+
+              <div class="result" id="decryptResult">
+                <div class="result-head">
+                  <span class="result-icon">âœ“</span>
+                  <div class="result-title">Decrypted Successfully</div>
+                  <span class="result-badge">REAL PASSWORD</span>
+                </div>
+                <div class="result-row" style="border-color:rgba(255,193,7,0.22)">
+                  <div class="result-content">
+                    <div class="result-label">Real Password</div>
+                    <div class="result-value plain" id="decryptedValue" style="font-size:15px">â€¢â€¢â€¢â€¢</div>
+                  </div>
+                  <div class="result-actions">
+                    <button class="icon-btn" id="copyDecryptedBtn" title="Copy" aria-label="Copy">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V7a2 2 0 0 1 2-2h8"/></svg>
+                    </button>
+                    <button class="icon-btn" id="toggleDecryptedBtn" title="Show/Hide" aria-label="Toggle visibility">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VAULT PAGE -->
+      <div class="page" id="page-vault">
+        <div class="page-header vault-header">
+          <div>
+            <div class="page-title">
+              <span class="title-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+              </span> 
+              Vault
+            </div>
+            <div class="page-subtitle">All encrypted passwords in <strong>vault.txt</strong> â€” one file, everything in one place.</div>
+          </div>
+          <button class="btn btn-secondary btn-small" id="refreshVaultBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            Refresh
+          </button>
+        </div>
+
+        <div class="vault-stats">
+          <div class="stat">
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-label">Total Passwords</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="statServices">0</div>
+            <div class="stat-label">Services</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value file-name" id="statFileSize">vault.txt</div>
+            <div class="stat-label">Vault File</div>
+          </div>
+        </div>
+
+        <div class="vault-toolbar">
+          <div class="search-wrap">
+            <span class="search-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-3.5-3.5"/></svg>
+            </span>
+            <input class="input" id="vaultSearch" placeholder="Search by service or email..." autocomplete="off" spellcheck="false">
+          </div>
+          <button class="btn btn-ghost btn-small" id="openFolderBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3z"/><path d="M3 7V5a2 2 0 0 1 2-2h4l2 2h6"/></svg>
+            Show in Folder
+          </button>
+        </div>
+
+        <div class="table-wrap" id="vaultTableWrap">
+          <div class="table-empty" id="vaultEmpty">
+            <div class="empty-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+            </div>
+            <h4>No passwords yet</h4>
+            <p>Create your first password in the <strong>Create</strong> tab.<br>Encrypted entries will appear here and in vault.txt.</p>
+          </div>
+          <div class="table-scroll">
+            <table class="vault-table" id="vaultTable" style="display:none">
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Email</th>
+                  <th>Encrypted Password</th>
+                  <th style="text-align:right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="vaultTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2FA PAGE -->
+      <div class="page" id="page-2fa">
+        <div class="page-header">
+          <div class="page-title">
+            <span class="title-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" opacity="0.3"/></svg>
+            </span> 
+            Two-Factor Authentication
+          </div>
+          <div class="page-subtitle">Save <strong>TOTP secrets</strong> by service + email encrypted with your <strong>master key</strong>. Generate 6-digit codes with the same key.</div>
+        </div>
+
+        <div class="grid2">
+          <!-- Add 2FA -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title"><span class="dot"></span> Add 2FA Secret</div>
+                <div class="card-desc">Encrypted with master key</div>
+              </div>
+              <span class="badge">TOTP</span>
+            </div>
+            <div class="card-body">
+              <div class="field">
+                <label class="label" for="tfaService">Service Name <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg></span>
+                  <input class="input" id="tfaService" placeholder="e.g. GitHub, Google">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="tfaEmail">Email <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 7l8 6 8-6"/></svg></span>
+                  <input class="input" id="tfaEmail" placeholder="e.g. you@example.com" type="email">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="tfaMasterKey">Master Key <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                  <input class="input" id="tfaMasterKey" type="password" placeholder="Enter master key">
+                  <button class="input-action" id="toggleTfaMasterKey" type="button">👁</button>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="tfaSecret">TOTP Secret <span style="color:var(--muted2);font-weight:400;text-transform:none;letter-spacing:0">— leave blank to auto-generate</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v8M8 12h8"/></svg></span>
+                  <input class="input" id="tfaSecret" placeholder="Base32 e.g. JBSWY3DPEHPK3PXP (or blank)" style="font-family:var(--mono);font-size:11px">
+                  <button class="input-action" id="genTfaSecretBtn" type="button" title="Generate random">↻</button>
+                </div>
+                <div class="help-text">Base32 A-Z, 2-7. If blank, creates 20-byte random secret.</div>
+              </div>
+              <button class="btn btn-primary" id="addTfaBtn" style="margin-top:8px">Add Encrypted 2FA</button>
+              <div id="addTfaAlert"></div>
+              <div class="result" id="addTfaResult">
+                <div class="result-row">
+                  <div style="flex:1;min-width:0">
+                    <div class="result-label">Generated Secret (save QR if needed)</div>
+                    <div class="result-value plain" id="tfaSecretValue" style="font-size:12px;letter-spacing:0.08em">••••</div>
+                  </div>
+                  <div class="result-actions">
+                    <button class="icon-btn" id="copyTfaSecretBtn">⧉</button>
+                  </div>
+                </div>
+                <div class="result-row">
+                  <div style="flex:1;min-width:0">
+                    <div class="result-label">Encrypted (saved in vault_2fa.txt)</div>
+                    <div class="result-value encrypted" id="tfaEncValue">••••</div>
+                  </div>
+                  <div class="result-actions">
+                    <button class="icon-btn" id="copyTfaEncBtn">⧉</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Generate 2FA -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title"><span class="dot" style="background:var(--primary)"></span> Generate 2FA Code</div>
+                <div class="card-desc">Uses master key to decrypt</div>
+              </div>
+              <span class="badge">6-DIGIT</span>
+            </div>
+            <div class="card-body">
+              <div class="field">
+                <label class="label" for="genTfaEncrypted">Encrypted 2FA Secret <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg></span>
+                  <input class="input" id="genTfaEncrypted" placeholder="Paste encrypted from vault_2fa.txt (iv:cipher)" style="font-family:var(--mono);font-size:11px">
+                  <button class="input-action" id="pasteGenTfaEncBtn" type="button" title="Paste">⎘</button>
+                </div>
+                <div class="help-text">Copy from vault_2fa.txt — same folder as app.</div>
+              </div>
+              <div class="field">
+                <label class="label" for="genTfaMasterKey">Master Key <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                  <input class="input" id="genTfaMasterKey" type="password" placeholder="Enter master key you used">
+                  <button class="input-action" id="toggleGenTfaKeyBtn" type="button">👁</button>
+                </div>
+              </div>
+              <button class="btn btn-primary" id="genTfaCodeBtn">Generate 2FA Code</button>
+              <div id="genTfaAlert"></div>
+              <div class="result" id="genTfaResult">
+                <div class="result-row" style="justify-content:center;flex-direction:column;gap:6px;padding:18px">
+                  <div class="result-label">Current Code (30s)</div>
+                  <div class="result-value plain" id="tfaCodeValue" style="font-size:32px;letter-spacing:0.06em;font-weight:900">••••••</div>
+                  <div style="display:flex;align-items:center;gap:8px;width:100%;margin-top:6px">
+                    <div style="flex:1;height:4px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden"><div id="tfaProgress" style="height:100%;width:0%;background:var(--primary);transition:width 1s linear"></div></div>
+                    <span id="tfaRemaining" style="font-size:11px;color:var(--muted2);font-weight:700;min-width:36px;text-align:right">--s</span>
+                  </div>
+                  <div style="display:flex;gap:8px;margin-top:8px">
+                    <button class="btn btn-secondary btn-small" id="copyTfaCodeBtn">Copy Code</button>
+                    <button class="btn btn-ghost btn-small" id="refreshTfaCodeBtn">↻ Refresh</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2FA Vault -->
+        <div class="card" style="margin-top:18px">
+          <div class="card-header">
+            <div>
+              <div class="card-title">2FA Vault — vault_2fa.txt</div>
+              <div class="card-desc">Same folder as app, encrypted</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-small" id="refresh2FAVaultBtn">↻ Refresh</button>
+              <button class="btn btn-ghost btn-small" id="open2FAFolderBtn">📂 Folder</button>
+              <button class="btn btn-ghost btn-small" id="clear2FAVaultBtn" style="color:var(--danger)">Clear</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div style="padding:12px 16px;display:flex;gap:8px;border-bottom:1px solid var(--border)">
+              <div class="search-wrap" style="flex:1">
+                <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-3.5-3.5"/></svg></span>
+                <input class="input" id="tfaSearch" placeholder="Search 2FA by service or email..." style="padding-left:38px">
+              </div>
+            </div>
+            <div class="table-wrap" style="border:none;border-radius:0">
+              <div class="table-empty" id="tfaEmpty">
+                <div class="empty-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg></div>
+                <h4>No 2FA yet</h4>
+                <p>Add your first 2FA secret above.</p>
+              </div>
+              <div class="table-scroll">
+                <table class="vault-table" id="tfaTable" style="display:none">
+                  <thead><tr><th>Service</th><th>Email</th><th>Encrypted Secret</th><th style="text-align:right">Actions</th></tr></thead>
+                  <tbody id="tfaTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# PassBox Vault - Encrypted Passwords
+# Format: SERVICE | EMAIL | ENCRYPTED_PASSWORD
+# WARNING: Do not edit encrypted values manually
+

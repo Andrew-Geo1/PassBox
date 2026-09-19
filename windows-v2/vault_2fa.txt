@@ -1,0 +1,4 @@
+﻿# PassBox 2FA Vault - Encrypted TOTP Secrets
+# Format: SERVICE | EMAIL | ENCRYPTED_SECRET
+# WARNING: Do not edit encrypted values manually
+

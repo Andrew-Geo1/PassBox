@@ -1,0 +1,66 @@
+{
+  "name": "passbox",
+  "version": "2.0.0",
+  "description": "PassBox - Modern Password Generator & Vault",
+  "main": "main.js",
+  "author": "Andrew_Geo",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-builder --win --x64",
+    "build:portable": "electron-builder --win portable --x64",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.passbox.app",
+    "productName": "PassBox",
+    "executableName": "passbox",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "PassBox"
+    },
+    "portable": {
+      "artifactName": "passbox.exe"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "renderer.js",
+      "style.css",
+      "icon.ico",
+      "package.json"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2",
+    "png-to-ico": "^3.0.2",
+    "sharp": "^0.35.4"
+  }
+}
